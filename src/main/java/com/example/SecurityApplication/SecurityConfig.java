@@ -34,6 +34,7 @@ AuthTokenFilter authTokenFilter;
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
                 authorizeRequests-> authorizeRequests
+                        .requestMatchers("/hello").permitAll()
                         .requestMatchers("/admin/**").hasAnyRole("ADMIN","USER")
                         .requestMatchers("/user/**").hasRole("USER")
                         .requestMatchers("/login/**").permitAll()

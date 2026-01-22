@@ -20,18 +20,20 @@ public class hello {
     @Autowired
     JwtUtils jwtUtils ;
 
-    @PreAuthorize("hasRole('ADMIN')")
+
     @GetMapping("/hello")
     public String sayHello(){
         return "hello";
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN','USER')")
+
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/admin")
     public String sayAdmin(){
         return "hello";
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN','USER')")
     @GetMapping("/user")
     public String sayUser(){
         return "hello";
@@ -55,7 +57,7 @@ public class hello {
             SecurityContextHolder.getContext().setAuthentication(authentication);
             UserDetails userDetails = (UserDetails) authentication.getPrincipal() ;
 
-            String jwtToken = jwtUtils.generateToken(userDetails.getUsername());
+            String jwtToken = jwtUtils.generateToken(userDetails);
             return jwtToken ;
     }
 }
